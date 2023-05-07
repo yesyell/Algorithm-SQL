@@ -14,5 +14,6 @@
   - 경주 진행중 1등인 선수의 이름은 불리지 않습니다.
 
 ## 입출력 예
-players	| callings |	result
-["mumu", "soe", "poe", "kai", "mine"] |	["kai", "kai", "mine", "mine"] |	["mumu", "kai", "mine", "soe", "poe"]
+| players | callings | result |
+| --- | --- | --- |
+| \["mumu", "soe", "poe", "kai", "mine"\] | \["kai", "kai", "mine", "mine"\] | \["mumu", "kai", "mine", "soe", "poe"\] |
