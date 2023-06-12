@@ -12,24 +12,13 @@
 #     else: 
 #         return s
     
-from collections import Counter
-
 def solution(X, Y):
-    char_count_X = Counter(X)
-    char_count_Y = Counter(Y)
-    common_chars = []
-    
-    for char in char_count_X:
-        count = min(char_count_X[char], char_count_Y[char])
-        common_chars.extend([char] * count)
-    
-    if not common_chars:
-        return "-1"
-    
-    common_chars.sort(reverse=True)
-    result = ''.join(common_chars)
-    
-    if result[0] == '0':
-        return "0"
-    else:
-        return result
+    answer = ''
+    for i in range(9,-1,-1) :
+        answer += (str(i) * min(X.count(str(i)), Y.count(str(i))))
+    if answer == '' :
+        return '-1'
+    elif answer[0] == '0':
+        return '0'
+    else :
+        return answer
