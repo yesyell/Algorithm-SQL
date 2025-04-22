@@ -1,11 +1,7 @@
 def solution(participant, completion):
-    data = dict()
-    hash_sum = 0
-    
-    for p in participant:
-        data[hash(p)] = p
-        hash_sum += hash(p)
-    for c in completion:
-        hash_sum -= hash(c)
-    
-    return data[hash_sum]
+    participant.sort()
+    completion.sort()
+    for i in range(len(completion)):
+        if participant[i] != completion[i]:
+            return participant[i]
+    return participant[-1]
