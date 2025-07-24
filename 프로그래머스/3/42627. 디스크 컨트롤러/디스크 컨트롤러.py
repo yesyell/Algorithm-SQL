@@ -1,27 +1,24 @@
-from collections import deque
+import heapq
 
 def solution(jobs):
-    n = len(jobs)
-    jobs = sorted(jobs, key=lambda x: x[0])  # 요청 시간 기준 정렬
-    dq = deque(jobs)
+    jobs.sort()  # 요청 시간 기준 정렬
+    heap = []
     
-    cur = 0
-    total_wait = 0
-    available = []
+    cur, total_time, i = 0, 0, 0
+    n = len(jobs)
 
-    while dq or available:
-        # 현재 시점에 도착한 작업 수집
-        while dq and dq[0][0] <= cur:
-            req, dur = dq.popleft()
-            available.append((dur, req))  # 작업시간 기준으로 선택
-        if available:
-            # 소요시간이 가장 짧은 작업 선택
-            available.sort()  # dur 기준 정렬
-            dur, req = available.pop(0)
-            cur += dur
-            total_wait += (cur - req)
+    while i < n or heap:
+        # 현재 시간까지 도착한 작업들 힙에 추가 (작업 시간 기준)
+        while i < n and jobs[i][0] <= cur:
+            heapq.heappush(heap, (jobs[i][1], jobs[i][0]))  # (작업 시간, 요청 시간)
+            i += 1
+        
+        if heap:
+            work_time, req_time = heapq.heappop(heap)
+            cur += work_time
+            total_time += cur - req_time  # 대기 시간 누적
         else:
-            # 가능한 작업 없으면 시간만 흐름
-            cur += 1
+            # 대기할 작업이 없다면 시간 흐름
+            cur = jobs[i][0]
 
-    return total_wait // n
+    return total_time // n
